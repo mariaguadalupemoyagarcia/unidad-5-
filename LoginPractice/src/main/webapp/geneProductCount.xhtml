@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body BGCOLOR="#4EFCFC">
+
+	<h1>GeneProductCount</h1>
+	
+	<h:form id="frmGeneProductCount">
+	Code:<h:inputText
+	value="#{geneProductCountController.geneProductCount.code}" />
+	SpeciedbName:<h:inputText
+	value="#{geneProductCountController.geneProductCount.speciedbName}" />
+	Species:<h:inputText
+	value="#{geneProductCountController.geneProductCount.species}" />
+	ProductCount:<h:inputText 
+	value="#{geneProductCountController.geneProductCount.productCount}" />
+	<h:commandButton action="#{geneProductCountController.save}" 
+	value="Save">
+	<f:ajax execute="frmGeneProductCount" render="dtGeneProductCount"/>
+	</h:commandButton>
+	<h:commandButton rendered="#{geneProductCountController.editMode}"
+	action="#{geneProductCountController.save}" value="Cancel">
+	<f:ajax render="frmGeneProductCount"></f:ajax>
+	</h:commandButton>
+	<h:dataTable value="#{geneProductCountController.geneProductCounts}" var="c" id="dtGeneProductCount">
+	<h:column>
+	<f:facet name="header">TermId</f:facet>
+		#{c.termId}
+	</h:column>
+	<h:column>
+		<f:facet name="header">Code</f:facet>
+		#{c.code}
+	</h:column>
+		<h:column>
+		<f:facet name="header">SpeciedbName</f:facet>
+		#{c.speciedbName}
+	</h:column>
+	<h:column>
+	<f:facet name="header">Species</f:facet>
+		#{c.species}
+	</h:column>
+	<h:column>
+	<f:facet name="header">ProductCount</f:facet>
+		#{c.productCount}
+	</h:column>
+	<h:column>
+	<f:facet name="header">Actions</f:facet>
+	<h:commandButton 
+	action="#{geneProductCountController.delete(c)}"
+	 value="Delete" 
+	 onclick="return window.confirm 
+		 ('Are you sure?')">
+	 <f:ajax render="frmGeneProductCount:dtGeneProductCount"/>
+	 </h:commandButton>
+	 <h:commandButton 
+	 action="#{geneProductCountController.update(c)}" 
+	 value="Update">
+	 <f:ajax render="frmGeneProductCount"/>
+	 </h:commandButton>
+	 
+	</h:column>
+	</h:dataTable>
+	</h:form>
+</body>
+</html>
